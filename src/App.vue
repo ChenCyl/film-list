@@ -5,11 +5,18 @@
         <h1>FILMS</h1>
       </router-link>
     </div>
-    <keep-alive>
+    <!-- 我的妈 include 救了我的命 -->
+    <keep-alive include="films">
       <router-view/>
     </keep-alive>
   </div>
 </template>
+
+<script>
+export default {
+
+}
+</script>
 
 <style>
 #app {
@@ -23,8 +30,7 @@
 
 #nav {
   text-align: center;
-  margin-top: 60px;
-  margin-bottom: 10px;
+  margin: 60px 0;
 }
 
 #nav a {

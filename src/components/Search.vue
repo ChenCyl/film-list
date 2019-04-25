@@ -97,8 +97,9 @@ export default {
   clear: both;
 }
 .search {
-  height: 40px;
-  margin: 25px 10px;
+  height: 30px;
+  margin-bottom: 25px;
+  margin-right: 5px;
   font-size: 14px;
   float: right;
 }
@@ -112,6 +113,7 @@ input {
   border-radius: 5px;
   padding: 5px 5px;
   width: 100px;
+  transform: rotateX('2')
 }
 input:focus {
   outline: none;

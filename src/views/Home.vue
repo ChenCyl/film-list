@@ -15,7 +15,7 @@
 <script>
 import FilmItem from "../components/FilmItem.vue";
 import Pagination from "../components/Pagination";
-import Search from "../components/Search"
+import Search from "../components/Search";
 
 export default {
   name: "films",
@@ -45,8 +45,8 @@ export default {
   },
   methods: {
     search(e) {
-      this.films = e
-      this.currentPage = 1
+      this.films = e;
+      this.currentPage = 1;
     },
     // 请求 Json
     getFilmData() {

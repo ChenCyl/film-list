@@ -28,9 +28,7 @@ export default {
   computed: {},
   methods: {
     goDetail() {
-      // console.log(this.$route.params);
-      // this.$router.go(-1);
-      console.log(this.$router.push("detail/" + this.item._id));
+      this.$router.push("detail/" + this.item._id)
     }
   }
 };
