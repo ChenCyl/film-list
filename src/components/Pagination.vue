@@ -1,11 +1,12 @@
 <template>
   <div class="pagination" :currentPage="currentPage">
     <button @click="lastPage"><</button>
-    <span
+    <button
       v-for="i in pageCount"
       v-bind:key="i"
       v-bind:class="[i == currentPage ? 'highlight' : '']"
-    >{{i}}</span>
+      @click="changePage"
+    >{{i}}</button>
     <button @click="nextPage">></button>
   </div>
 </template>
@@ -34,7 +35,8 @@ export default {
   computed: {
     // 总页数
     pageCount() {
-      return Math.floor(this.total / this.pageSize) + 1;
+      return Math.floor(this.total / this.pageSize) < this.total / this.pageSize?
+      Math.floor(this.total / this.pageSize) + 1 : this.total / this.pageSize;
     }
   },
   methods: {
@@ -59,13 +61,27 @@ export default {
       else {
         return false
       }
-    }
+    },
+    changePage(event) {
+      this.$emit('click', parseInt(event.target.innerText))
+    },
   }
 };
 </script>
 
 <style scoped>
 .highlight {
-  color: aqua;
+  color: coral;
+}
+button {
+  border: 0;
+  font-size: 16px;
+  font-weight:500
+}
+button:hover {
+  cursor: pointer;
+}
+button:focus {
+  outline: 0ch;
 }
 </style>
