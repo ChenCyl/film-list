@@ -12,7 +12,7 @@
           <input type="text" v-model="input" placeholder="搜索..." @keyup.enter="searchFilm">
         </div>
       </transition>
-      <button @click="isHidden = !isHidden">🔍</button>
+      <button @click="isHidden = !isHidden"><img src="/search.png" alt="search"></button>
     </div>
     <div class="clearfix"></div>
   </div>
