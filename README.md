@@ -28,4 +28,4 @@ yarn run serve
 
 ## Demo
 
-![films-list-demo](/Users/chenyulei/Documents/GitHub/films-list/assets/films-list-demo.gif)
+![films-list-demo](assets/films-list-demo.gif)
