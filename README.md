@@ -28,4 +28,4 @@ yarn run serve
 
 ## Demo
 
-![films-list-demo](assets/films-list-demo.gif)
+![filmlistdemo](assets/filmlistdemo.gif)
