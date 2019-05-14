@@ -134,7 +134,10 @@ export default {
         console.error(xhr.statusText);
       };
       // 请求开始
-      xhr.open("GET", "films.json", true);
+      // xhr.open("GET",'http://localhost:5000/api/forms', true)
+      // xhr.open("GET", "films.json", true);
+      xhr.open("GET",'/api/forms', true)
+
       xhr.send(null);
     }
   }
