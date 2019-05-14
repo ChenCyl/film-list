@@ -1,116 +1,114 @@
 <template>
   <div id="detailPage">
-    <h1>{{item.title}} ({{item.year}})</h1>
+    <h1>{{film.title}} ({{film.year}})</h1>
     <!-- 影片信息介绍 -->
     <div class="intro-container">
       <!-- 资料 -->
       <div class="info">
         <!-- 图片 -->
         <div class="info-img">
-          <img :src="item.poster" alt="poster" onerror="onerror=null;src='/imgerror.png'">
+          <img :src="film.poster" alt="poster" onerror="onerror=null;src='/imgerror.png'">
         </div>
         <!-- 文字 -->
         <div class="info-text">
           <p>
             导演:&#32;
             <span
-              v-for="(director,index) in item.directors"
+              v-for="(director,index) in film.directors"
               :key="director.id"
             >{{index == 0? '':'&#32;/&#32;'}}{{director.name}}</span>
           </p>
           <p>
             编剧:&#32;
             <span
-              v-for="(writer,index) in item.writers"
+              v-for="(writer,index) in film.writers"
               :key="writer.id"
             >{{index == 0? '':'&#32;/&#32;'}}{{writer.name}}</span>
           </p>
           <p>
             主演:&#32;
             <span
-              v-for="(cast,index) in item.casts"
+              v-for="(cast,index) in film.casts"
               :key="cast.id"
             >{{index == 0? '':'&#32;/&#32;'}}{{cast.name}}</span>
           </p>
           <p>
             类型:&#32;
             <span
-              v-for="(genre,index) in item.genres"
+              v-for="(genre,index) in film.genres"
               :key="genre"
             >{{index == 0? '':'&#32;/&#32;'}}{{genre}}</span>
           </p>
-          <p v-if="item.site">
+          <p v-if="film.site">
             官方网站:&#32;
-            <a :href="item.site">{{item.site}}</a>
+            <a :href="film.site">{{film.site}}</a>
           </p>
           <p>
             制片国家/地区:&#32;
             <span
-              v-for="(country,index) in item.countries"
+              v-for="(country,index) in film.countries"
               :key="country"
             >{{index == 0? '':'&#32;/&#32;'}}{{country}}</span>
           </p>
           <p>
             语言:&#32;
             <span
-              v-for="(language,index) in item.languages"
+              v-for="(language,index) in film.languages"
               :key="language"
             >{{index == 0? '':'&#32;/&#32;'}}{{language}}</span>
           </p>
           <p>
             上映日期:&#32;
             <span
-              v-for="(date,index) in item.pubdate"
+              v-for="(date,index) in film.pubdate"
               :key="date"
             >{{index == 0? '':'&#32;/&#32;'}}{{date}}</span>
           </p>
-          <p v-if="item.episodes">集数:&#32;{{item.episodes}}</p>
-          <p>片长:&#32;{{item.duration}}&#32;分钟</p>
-          <p v-if="item.aka[0]">
+          <p v-if="film.episodes">集数:&#32;{{film.episodes}}</p>
+          <p>片长:&#32;{{film.duration}}&#32;分钟</p>
+          <p v-if="film.aka[0]">
             又名:&#32;
-            <span v-for="(a,index) in item.aka" :key="a">{{index == 0? '':'&#32;/&#32;'}}{{a}}</span>
+            <span v-for="(a,index) in film.aka" :key="a">{{index == 0? '':'&#32;/&#32;'}}{{a}}</span>
           </p>
           <p>
             IMDb链接:&#32;
-            <a href="#">{{item.imdb}}</a>
+            <a href="#">{{film.imdb}}</a>
           </p>
         </div>
       </div>
       <!-- 评分 -->
       <div class="rating">
         
-        <rating :rating="item.rating"></rating>
+        <rating :rating="film.rating"></rating>
       </div>
     </div>
 
     <!-- 影片简介 -->
     <div class="summary">
-      <h2>{{item.title}}&#32;的剧情简介</h2>
-      <p>&emsp;&emsp;{{item.summary}}</p>
+      <h2>{{film.title}}&#32;的剧情简介</h2>
+      <p>&emsp;&emsp;{{film.summary}}</p>
     </div>
+
+    <!-- 加载动画 -->
+    <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
 import Rating from '../components/Rating'
+import Loading from '../components/Loading'
+
 export default {
   name: "detailPage",
   data() {
     return {
-      films: []
+      film: {},
+      isLoading: false
     };
   },
   components: {
-    Rating
-  },
-  computed: {
-    item() {
-      return this.films.filter(x => {
-        if (x._id === this.$route.params.id) {
-          return true;
-        }
-      })[0];
-    }
+    Rating,
+    Loading,
   },
   created() {
     this.getFilmData();
@@ -118,14 +116,18 @@ export default {
   methods: {
     // 请求 Json
     getFilmData() {
+      // 开始加载动画
+      this.isLoading = true
       // 请求参数准备
       let xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
         // 收到数据
         if (xhr.readyState === 4) {
+          // 停止加载动画
+          this.isLoading = false
           // 如果请求成功
           if (xhr.status === 200 || xhr.status === 304) {
-            this.films = JSON.parse(xhr.response);
+            this.film = JSON.parse(xhr.response);
           }
         }
       };
@@ -134,9 +136,9 @@ export default {
         console.error(xhr.statusText);
       };
       // 请求开始
-      // xhr.open("GET",'http://localhost:5000/api/forms', true)
+      // xhr.open("GET",'http://localhost:5000/api/forms/'+ this.$route.params.id, true)
       // xhr.open("GET", "films.json", true);
-      xhr.open("GET",'/api/forms', true)
+      xhr.open("GET",'/api/forms/' + this.$route.params.id, true)
 
       xhr.send(null);
     }
@@ -178,7 +180,6 @@ a {
 .rating {
   flex: 1;
   height: 200px;
-  /* background-color: blue; */
 }
 </style>
 

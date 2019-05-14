@@ -15,6 +15,15 @@ router.get("/", (req, res) => {
     .catch(err => { console.log(err) })
 })
 
+router.get("/:id", (req, res) => {
+  // console.log(req.params.id)
+  Form.findOne({
+    _id: req.params.id
+  }).then(form => {
+    res.json(form)
+  }).catch(err => console.log(err))
+})
+
 // @route POST /forms
 // @desc create/update new forms[]
 // @access public
@@ -30,10 +39,6 @@ router.post("/", (req, res) => {
         console.log(err)
       })
   });
-
-        
-    
-
 })
 
 // @route GET /forms/test
