@@ -1,13 +1,18 @@
 <template>
   <div id="films">
+
     <transition name="loading">
-    <div class="loadingContainer" v-if="isLoading"></div>
+      <div class="loadingContainer" v-if="isLoading"></div>
     </transition>
-    
     <loading v-if="isLoading"></loading>
+
+    <div class="backHome">
+      <img src="/home.png" alt="首页" height="16px" @click="films = metaFilms">
+    </div>
     <div class="searchContainer">
       <search :searchScoped="metaFilms" @search="search"></search>
     </div>
+    <div class="clearfix"></div>
     <div class="filmContainer">
       <film-item v-for="item in currentPageFilms" :key="item._id" :item="item"></film-item>
     </div>
@@ -81,8 +86,8 @@ export default {
         console.error(xhr.statusText);
       };
       // 请求开始
-      // xhr.open("GET", "films_all.json", true); // 本地 public
-      xhr.open("GET",'/api/forms', true)
+      // xhr.open("GET", "films.json", true); // 本地 public
+      xhr.open("GET", "/api/forms", true);
       // xhr.open("GET", "http://localhost:5000/api/forms", true);
       xhr.send(null);
     }
@@ -99,6 +104,20 @@ export default {
   padding: 30px 0;
   float: right;
 }
+.searchContainer {
+  /* position: relative; */
+  float: right; 
+}
+.clearfix {
+  clear: both;
+}
+.backHome {
+  display: inline-block;
+  margin: 5px 15px;
+}
+.backHome:hover {
+  cursor: pointer;
+}
 .loadingContainer {
   position: absolute;
   top: 0%;
@@ -107,7 +126,8 @@ export default {
   width: 100%;
   background: rgb(255, 255, 255);
 }
-.loading-enter-active, .loading-leave-active {
+.loading-enter-active,
+.loading-leave-active {
   transition: opacity 1s;
 }
 .loading-enter, .loading-leave-to /* .loading-leave-active below version 2.1.8 */ {

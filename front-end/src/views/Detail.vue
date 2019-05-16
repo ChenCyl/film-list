@@ -86,7 +86,7 @@
     <!-- 影片简介 -->
     <div class="summary">
       <h2>{{film.title}}&#32;的剧情简介</h2>
-      <p>&emsp;&emsp;{{film.summary}}</p>
+      <div>&emsp;&emsp;{{film.summary}}</div>
     </div>
 
     <!-- 加载动画 -->
@@ -136,9 +136,9 @@ export default {
         console.error(xhr.statusText);
       };
       // 请求开始
-      // xhr.open("GET",'http://localhost:5000/api/forms/'+ this.$route.params.id, true)
+      xhr.open("GET",'http://47.102.112.138:5679/api/forms/'+ this.$route.params.id, true)
       // xhr.open("GET", "films.json", true);
-      xhr.open("GET",'/api/forms/' + this.$route.params.id, true)
+      // xhr.open("GET",'/api/forms/' + this.$route.params.id, true)
 
       xhr.send(null);
     }
@@ -155,8 +155,10 @@ img {
   height: 345px;
   width: 240px;
 }
-.summary p {
+
+.summary {
   line-height: 30px;
+  overflow: hidden;
 }
 p {
   margin-top: 0;

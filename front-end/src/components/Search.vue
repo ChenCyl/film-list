@@ -14,7 +14,6 @@
       </transition>
       <button @click="isHidden = !isHidden"><img src="/search.png" alt="search"></button>
     </div>
-    <div class="clearfix"></div>
   </div>
 </template>
 
@@ -93,15 +92,13 @@ export default {
 </script>
 
 <style scoped>
-.clearfix {
-  clear: both;
-}
+
 .search {
   height: 30px;
   margin-bottom: 25px;
   margin-right: 5px;
   font-size: 14px;
-  float: right;
+  /* float: right; */
 }
 select {
   height: 27px;

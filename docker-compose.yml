@@ -16,6 +16,8 @@ services:
 
   backend:
     image: hitoka/film-list-backend
+    ports:
+      - "5679:5000"
     depends_on:
       - mongodb
 
